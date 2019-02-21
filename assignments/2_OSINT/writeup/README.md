@@ -1,17 +1,17 @@
 # Writeup 2 - OSINT
 
-Name: *PUT YOUR NAME HERE*
-Section: *PUT YOUR SECTION NUMBER HERE*
+Name: Kenton Wong
+Section: 0201
 
 I pledge on my honor that I have not given or received any unauthorized assistance on this assignment or examniation.
 
-Digital acknowledgement: *PUT YOUR NAME HERE*
+Digital acknowledgement: Kenton Wong
 
 ## Assignment Writeup
 
 ### Part 1 (45 pts)
 
-*Please use this space to writeup your answers and solutions (and how you found them!) for part 1.*
+x
 
 ### Part 2 (75 pts)
 
