@@ -13,9 +13,9 @@ Digital acknowledgement: Kenton Wong
 
 1. 142.93.168.81 was attacked
 
-2. (tools)
+2. nmap was used to find the open port; a SecList was used to bruteforce the password by connecting to the server on the vulnerable port; command injections were used to retrieve the jpeg
 
-3. The hackers' IP addresses are 159.203.113.181 and 185.199.110.153. Other IP addresses found from the pcap file are 113.176.70.179, 37.237.212.29, 178.19.107.42, and 184.22.161.10. The hackers are connecting from _.
+3. The hackers' IP addresses are 159.203.113.181 and 185.199.110.153. Other IP addresses found from the pcap file are 113.176.70.179, 37.237.212.29, 178.19.107.42, and 184.22.161.10. The hackers are connecting from 101 Ave of the Americas, 10th Floor, New York, NY 10013.
 
 4. Port 20 was used to steal the files on the server.
 
@@ -39,4 +39,4 @@ Digital acknowledgement: Kenton Wong
 	- 5	(ASCII)	x
 
 4. FLAGS:
-	- CMSC389R-{h0pefully_y0u_didnt_grep_CMSC389R}
+	- CMSC389R-{h0pefully_y0u_didnt_grep_CMSC389R} (but backwords)
