@@ -1,0 +1,19 @@
+220 (vsFTPd 3.0.3)
+331 Please specify the password.
+230 Login successful.
+215 UNIX Type: L8
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+226 Directory send OK.
+200 Switching to Binary mode.
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for find_me.jpeg (2037974 bytes).
+226 Transfer complete.
+200 PORT command successful. Consider using PASV.
+150 Ok to send data.
+226 Transfer complete.
+200 Switching to ASCII mode.
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+226 Directory send OK.
+221 Goodbye.
