@@ -2,6 +2,7 @@
 
 import sys
 import struct
+from datetime import datetime
 
 
 # You can use this method to exit on failure conditions.
@@ -24,7 +25,7 @@ with open(sys.argv[1], 'rb') as fpff:
 # Hint: struct.unpack will be VERY useful.
 # Hint: you might find it easier to use an index/offset variable than
 # hardcoding ranges like 0:8
-magic, version = struct.unpack("<LL", data[0:8])
+magic, version, timestamp, author, nsects = struct.unpack("<LLL8sL", data[0:24])
 
 if magic != MAGIC:
     bork("Bad magic! Got %s, expected %s" % (hex(magic), hex(MAGIC)))
@@ -35,8 +36,52 @@ if version != VERSION:
 print("------- HEADER -------")
 print("MAGIC: %s" % hex(magic))
 print("VERSION: %d" % int(version))
+print("TIMESTAMP: %s" % datetime.utcfromtimestamp(int(timestamp)).strftime("%Y-%m-%d %H:%M:%S"))
+print("AUTHOR: %s" % str(author))
+print("SECTION COUNT: %d" % int(nsects))
 
 # We've parsed the magic and version out for you, but you're responsible for
 # the rest of the header and the actual FPFF body. Good luck!
 
 print("-------  BODY  -------")
+start = 24
+end = start + 8
+for x in range (0, int(nsects)):
+    stype, slen = struct.unpack("<LL", data[start:end])
+    print("SECTION TYPE: %s" % hex(stype))
+    print("SECTION LENGTH: %d" % int(slen))
+    start = end
+    end = start + int(slen)
+    if int(slen) > 0:
+	if hex(stype) == "0x3":
+	    svalue = struct.unpack("<{}L".format(slen / 4), data[start:end])
+	elif hex(stype) == "0x4" or hex(stype) == "0x5":
+	    svalue = struct.unpack("<{}Q".format(slen / 8), data[start:end])
+	elif hex(stype) == "0x6":
+	    if int(slen) == 16:
+		svalue = struct.unpack("<{}s".format(slen), data[start:end])
+	    else:
+		bork("Bad size! Got %s, expected 16" % int(slen))
+	elif hex(stype) == "0x7":
+	    if int(slen) == 4:
+		svalue = struct.unack("<{}s".format(slen), data[start:end])
+	    else:
+		bork("Bad size! Got %s, expected 4" % int(slen))
+	elif hex(stype) == "0x8":
+	    #svalue = struct.unpack("<{}s".format(slen), data[start:end])
+	    svalue = "\\x89\\50\\4E\\47\\0D\\0A\\1A\\0A" + str(struct.unpack("<{}s".format(slen), data[start:end]))
+	    file = open("section{}d.png".format(x), "w")
+	    file.write(svalue)
+	    file.close()
+	elif hex(stype) == "0x9" or hex(stype) == "0xA":
+	    svalue = "\\G\\I\\F\\8\\7\\a" + struct.unpack("<{}s".format(slen), data[start:end])
+	    file = open("section{}d.gif".format(x), "w")
+	    file.write(svalue)
+	    file.close()
+	elif hex(stype) == "0x1" or hex(stype) == "0x2":
+            svalue = struct.unpack("<{}s".format(slen), data[start:end])
+	else:
+	    bork("Bad type! Got %s" % hex(stype))
+        print("SECSTION VALUE: %s" % str(svalue))
+        start = end
+        end = start + 8
