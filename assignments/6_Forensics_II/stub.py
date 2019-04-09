@@ -54,34 +54,42 @@ for x in range (0, int(nsects)):
     end = start + int(slen)
     if int(slen) > 0:
 	if hex(stype) == "0x3":
-	    svalue = struct.unpack("<{}L".format(slen / 4), data[start:end])
+	    svalue = struct.unpack("<{}L".format(slen/4), data[start:end])
+	    print("SECTION VALUE: %s" % str(svalue))
 	elif hex(stype) == "0x4" or hex(stype) == "0x5":
-	    svalue = struct.unpack("<{}Q".format(slen / 8), data[start:end])
+	    svalue = struct.unpack("<{}Q".format(slen/8), data[start:end])
+	    print("SECTION VALUE: %s" % str(svalue))
 	elif hex(stype) == "0x6":
 	    if int(slen) == 16:
-		svalue = struct.unpack("<{}s".format(slen), data[start:end])
+		svalue1 = struct.unpack("<{}Q".format(1), data[start:start+8])
+		svalue2 = struct.unpack("<{}Q".format(1), data[end-8:end])
+		print("SECTION VALUE: ({},{})".format(svalue1, svalue2))
 	    else:
 		bork("Bad size! Got %s, expected 16" % int(slen))
 	elif hex(stype) == "0x7":
 	    if int(slen) == 4:
 		svalue = struct.unack("<{}s".format(slen), data[start:end])
+		print("SECTION VALUE: %s" % str(svalue))
 	    else:
 		bork("Bad size! Got %s, expected 4" % int(slen))
 	elif hex(stype) == "0x8":
 	    #svalue = struct.unpack("<{}s".format(slen), data[start:end])
 	    svalue = "\\x89\\50\\4E\\47\\0D\\0A\\1A\\0A" + str(struct.unpack("<{}s".format(slen), data[start:end]))
+	    print("SECTION VALUE: %s" % str(svalue))
 	    file = open("section{}d.png".format(x), "w")
 	    file.write(svalue)
 	    file.close()
 	elif hex(stype) == "0x9" or hex(stype) == "0xA":
 	    svalue = "\\G\\I\\F\\8\\7\\a" + struct.unpack("<{}s".format(slen), data[start:end])
+	    print("SECTION VALUE: %s" % str(svalue))
 	    file = open("section{}d.gif".format(x), "w")
 	    file.write(svalue)
 	    file.close()
 	elif hex(stype) == "0x1" or hex(stype) == "0x2":
             svalue = struct.unpack("<{}s".format(slen), data[start:end])
+	    print("SECTION VALUE: %s" % str(svalue))
 	else:
 	    bork("Bad type! Got %s" % hex(stype))
-        print("SECSTION VALUE: %s" % str(svalue))
+        #print("SECTION VALUE: %s" % str(svalue))
         start = end
         end = start + 8
