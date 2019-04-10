@@ -27,16 +27,17 @@ Digital acknowledgement: Kenton Wong
 
 ### Part 2 (55 Pts)
 
-1. greetz.fpff was generated on March 27, 2019 at 4:15:05 AM
+1. greetz.fpff was generated on March 27, 2019 at 4:15:05
 
 2. The author of the file is fl1nch
 
 3. SECTIONS:
 	- 1	(ASCII)	Hey you, keep looking :)
-	- 2	(COORD)	x
-	- 3	(PNG)	x
-	- 4	(ASCII)	flag listed below
-	- 5	(ASCII)	x
+	- 2	(COORD)	52.336035, 4.880673
+	- 3	(PNG)	a png file
+	- 4	(ASCII)	first flag listed below (found when parsing)
+	- 5	(ASCII)	second flag listed below (found by converting section value to base 64 ASCII)
 
 4. FLAGS:
 	- CMSC389R-{h0pefully_y0u_didnt_grep_CMSC389R} (but backwords)
+	- CMSC389R-{hey_h3y_y0U_you_I_dont_like_your_base64_encoding}
